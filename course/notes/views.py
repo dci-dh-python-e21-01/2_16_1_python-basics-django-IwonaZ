@@ -36,6 +36,6 @@ def numbered_notes(request, text):
             titel = note["section"]
             my_note = f"{note['text']}"
 
-    html = f"<html><body><h1>Note number {text}</h1><h3>{titel}</h3><p>{my_note}</p><p><a href={reverse('numbered_notes', args=[text-1])}>Previous note <a href={reverse('home')}>Back to home</a><a href={reverse('numbered_notes', args=[text+1])}>Next note</a></p></body></html>"
+    html = f"<html><body><h1>Note number {text}</h1><h3>{titel}</h3><p>{my_note}</p><p><a href={reverse('numbered_notes', args=[text-1])}>Previous note</a> <a href={reverse('home')}>Back to home</a><a href={reverse('numbered_notes', args=[text+1])}>Next note</a></p></body></html>"
 
     return HttpResponse(html)
