@@ -28,14 +28,18 @@ def details(request, text):
 
 def numbered_notes(request, text):
     my_note = ""
-    titel = ""
+    title = ""
     enum = enumerate(notes, start=1)
 
     for count, note in enum:
         if count == text:
-            titel = note["section"]
+            title = note["section"]
             my_note = f"{note['text']}"
 
-    html = f"<html><body><h1>Note number {text}</h1><h3>{titel}</h3><p>{my_note}</p><p><a href={reverse('numbered_notes', args=[text-1])}>Previous note</a> <a href={reverse('home')}>Back to home</a><a href={reverse('numbered_notes', args=[text+1])}>Next note</a></p></body></html>"
+    html = f"<html><body><h1>Note number {text}</h1><h3>{title}</h3><p>{my_note}</p><p><a href={reverse('numbered_notes', args=[text-1])}>Previous note</a> <a href={reverse('home')}>Back to home</a><a href={reverse('numbered_notes', args=[text+1])}>Next note</a></p></body></html>"
 
     return HttpResponse(html)
+
+
+def redirect_note(request, text):
+    return redirect("numbered_notes", args=[text])
