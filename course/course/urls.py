@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 
 from notes import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home, name="home"),
+    path("", TemplateView.as_view(template_name="common/home.html"), name="home"),
+    path(
+        "home", TemplateView.as_view(template_name="common/home.html"), name="home_page"
+    ),
     path("<int:text>/", views.redirect_note, name="redirect_note"),
     path("notes/", include(("notes.urls", "notes"), namespace="notes")),
     path("todo/", include(("todo.urls", "todo"), namespace="todo")),

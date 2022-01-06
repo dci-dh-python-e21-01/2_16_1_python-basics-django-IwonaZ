@@ -4,9 +4,8 @@ from django.urls import reverse
 from notes.models import notes
 
 
-def home(request):
-    html = f"<html><body><h1>Welcome to my course notes!</h1><p> <a href={reverse('notes:sections')}>Check the list of sections</a></p><p><a href={reverse('notes:numbered_notes', args=[1])}>Read my first note</a></p></body></html>"
-    return HttpResponse(html)
+# def home(request):
+#     return render(request, "common/home.html")
 
 
 def sections(request):
