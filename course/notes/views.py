@@ -5,12 +5,12 @@ from notes.models import notes
 
 
 def home(request):
-    html = f"<html><body><h1>Welcome to my course notes!</h1><p> <a href={reverse('sections')}>Check the list of sections</a></p><p><a href={reverse('numbered_notes', args=[1])}>Read my first note</a></p></body></html>"
+    html = f"<html><body><h1>Welcome to my course notes!</h1><p> <a href={reverse('notes:sections')}>Check the list of sections</a></p><p><a href={reverse('notes:numbered_notes', args=[1])}>Read my first note</a></p></body></html>"
     return HttpResponse(html)
 
 
 def sections(request):
-    html = f"<html><body><h2>Browse my notes by section</h2><ol><li><a href={reverse('details', args=['Web Frameworks'])}>Web Frameworks</a></li><li><a href={reverse('details', args=['Setting up Django'])}>Setting up Django</a></li><li><a href={reverse('details', args=['URL Mapping'])}>URL Mapping</a></ol><p><a href={reverse('home')}>Back to home</a></p></body></html>"
+    html = f"<html><body><h2>Browse my notes by section</h2><ol><li><a href={reverse('notes:details', args=['Web Frameworks'])}>Web Frameworks</a></li><li><a href={reverse('notes:details', args=['Setting up Django'])}>Setting up Django</a></li><li><a href={reverse('notes:details', args=['URL Mapping'])}>URL Mapping</a></ol><p><a href={reverse('home')}>Back to home</a></p></body></html>"
     return HttpResponse(html)
 
 
@@ -21,7 +21,7 @@ def details(request, text):
         if note["section"] == text:
             my_note += f"<li>{note['text']}</li>"
 
-    html = f"<html><body><h2>Notes about {text}</h2><ol>{my_note}</ol><p><a href={reverse('sections')}>Back to sections</a></p></body></html>"
+    html = f"<html><body><h2>Notes about {text}</h2><ol>{my_note}</ol><p><a href={reverse('notes:sections')}>Back to sections</a></p></body></html>"
 
     return HttpResponse(html)
 
@@ -36,10 +36,11 @@ def numbered_notes(request, text):
             title = note["section"]
             my_note = f"{note['text']}"
 
-    html = f"<html><body><h1>Note number {text}</h1><h3>{title}</h3><p>{my_note}</p><p><a href={reverse('numbered_notes', args=[text-1])}>Previous note</a> <a href={reverse('home')}>Back to home</a><a href={reverse('numbered_notes', args=[text+1])}>Next note</a></p></body></html>"
+    html = f"<html><body><h1>Note number {text}</h1><h3>{title}</h3><p>{my_note}</p><p><a href={reverse('notes:numbered_notes', args=[text-1])}>Previous note</a> <a href={reverse('home')}>Back to home</a><a href={reverse('notes:numbered_notes', args=[text+1])}>Next note</a></p></body></html>"
 
     return HttpResponse(html)
 
 
 def redirect_note(request, text):
-    return redirect("numbered_notes", args=[text])
+    return redirect("notes:numbered_notes", text=text)  # this redirect view
+    # return redirect(reverse("numbered_notes", args=[text]))  # this redirect url

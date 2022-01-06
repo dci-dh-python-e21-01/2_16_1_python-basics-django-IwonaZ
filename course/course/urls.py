@@ -22,6 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
     path("<int:text>/", views.redirect_note, name="redirect_note"),
-    path("notes/", include("notes.urls")),
-    path("todo/", include("todo.urls")),
+    path("notes/", include(("notes.urls", "notes"), namespace="notes")),
+    path("todo/", include(("todo.urls", "todo"), namespace="todo")),
 ]
