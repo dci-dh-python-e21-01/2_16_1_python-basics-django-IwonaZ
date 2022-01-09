@@ -1,0 +1,11 @@
+{% extends "common/base.html" %}
+
+{% block header %}See our Todos{% endblock %}
+
+{% block content %}
+{% for todo in todos %}
+<p>
+<a href="{% url 'todo:todo_view' todo.id %}">{{todo.id}}.{{ todo.content }}</a>
+</p>
+{% endfor %}
+{% endblock %}

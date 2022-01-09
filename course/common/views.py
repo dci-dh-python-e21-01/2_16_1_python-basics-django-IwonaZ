@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 
-# Create your views here.
+
+def overview_view(request):
+    return render(request, "home.html")
+
+
+def redirect_id_view(request, id):
+    return redirect(reverse("section_id_view", args=(id)))

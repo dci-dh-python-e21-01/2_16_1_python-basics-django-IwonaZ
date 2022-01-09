@@ -1,0 +1,12 @@
+{% extends "notes/base.html" %}
+
+{% block content %}
+{% if section %}
+<h2>{{ section.title }}</h2>
+<p>{{ section.note|safe }}</p>
+<p><a href="{{request.META.HTTP_REFERER|escape}}">Back</a> </p>
+<p>Next</p>
+{% else %}
+The section could not be found.
+{% endif %}
+{% endblock %}

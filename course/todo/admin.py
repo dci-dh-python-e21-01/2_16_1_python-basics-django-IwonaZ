@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from todo import models
+
+
+class TodoAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(models.Todo, TodoAdmin)

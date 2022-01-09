@@ -1,45 +1,34 @@
-from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from django.urls import reverse
-from notes.models import notes
+from django.shortcuts import render
+
+from notes import models
 
 
-# def home(request):
-#     return render(request, "common/home.html")
+def notes_main_view(request):
+    return render(request, "notes/main_overview.html")
 
 
-def sections(request):
-    html = f"<html><body><h2>Browse my notes by section</h2><ol><li><a href={reverse('notes:details', args=['Web Frameworks'])}>Web Frameworks</a></li><li><a href={reverse('notes:details', args=['Setting up Django'])}>Setting up Django</a></li><li><a href={reverse('notes:details', args=['URL Mapping'])}>URL Mapping</a></ol><p><a href={reverse('home')}>Back to home</a></p></body></html>"
-    return HttpResponse(html)
+def section_overview(request):
+    sections = models.Section.objects.all()
+
+    return render(
+        request,
+        "notes/overview.html",
+        {"sections": sections},
+    )
 
 
-def details(request, text):
-    my_note = ""
-
-    for note in notes:
-        if note["section"] == text:
-            my_note += f"<li>{note['text']}</li>"
-
-    html = f"<html><body><h2>Notes about {text}</h2><ol>{my_note}</ol><p><a href={reverse('notes:sections')}>Back to sections</a></p></body></html>"
-
-    return HttpResponse(html)
+def section_view(request, unique_slug):
+    section = models.Section.objects.filter(slug=unique_slug).first()
+    return render(request, "notes/section.html", {"section": section})
 
 
-def numbered_notes(request, text):
-    my_note = ""
-    title = ""
-    enum = enumerate(notes, start=1)
-
-    for count, note in enum:
-        if count == text:
-            title = note["section"]
-            my_note = f"{note['text']}"
-
-    html = f"<html><body><h1>Note number {text}</h1><h3>{title}</h3><p>{my_note}</p><p><a href={reverse('notes:numbered_notes', args=[text-1])}>Previous note</a> <a href={reverse('home')}>Back to home</a><a href={reverse('notes:numbered_notes', args=[text+1])}>Next note</a></p></body></html>"
-
-    return HttpResponse(html)
+def section_id_view(request, id):
+    section = models.Section.objects.filter(id=id).first()
+    return render(request, "notes/section.html", {"section": section})
 
 
-def redirect_note(request, text):
-    return redirect("notes:numbered_notes", text=text)  # this redirect view
-    # return redirect(reverse("numbered_notes", args=[text]))  # this redirect url
+def search_view(request, search_text):
+    section = models.Section.objects.filter(note__icontains=search_text).first()
+    return render(
+        request, "notes/search.html", {"section": section, "term": search_text}
+    )

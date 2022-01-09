@@ -1,0 +1,15 @@
+{% extends "notes/base.html" %}
+
+{% block title %}{{section.title}}{% endblock %}
+
+{% block content %}
+
+<p>Search term: {{ term }}</p>
+
+{% if section %}
+<p>{{section.note}}</p>
+{% else %}
+The section could not be found.
+{% endif %}
+
+{% endblock %}

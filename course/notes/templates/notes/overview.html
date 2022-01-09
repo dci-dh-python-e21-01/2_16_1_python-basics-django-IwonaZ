@@ -1,0 +1,12 @@
+{% extends "notes/base.html" %}
+
+{% block content %}
+
+{% for section in sections %}
+
+<p>
+<a href="{% url 'notes:section_view' section.slug %}">{{ section.title }}</a>
+</p>
+{% endfor %}
+
+{% endblock %}

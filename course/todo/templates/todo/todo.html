@@ -1,0 +1,12 @@
+{% extends "common/base.html" %}
+
+
+{% block header %}TODO {{todo.id}}{% endblock %}
+
+{% block content %}
+{% if todo %}
+<p>{{todo.content}}</p>
+{% else %}
+The todo item could not be found.
+{% endif %}
+{% endblock %}

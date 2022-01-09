@@ -1,22 +1,16 @@
-from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from django.urls import reverse
-from todo.models import todos
+from django.shortcuts import render
+
+# Create your views here.
+from django.shortcuts import render
+
+from todo import models
 
 
-def todo(request, text):
-    my_todo = ""
-    title = ""
-    body = ""
-    status = ""
-    enum = enumerate(todos, start=1)
+def todo_view(request, id):
+    todo = models.Todo.objects.filter(id=id).first()
+    return render(request, "todo/todo.html", {"todo": todo})
 
-    for count, item in enum:
-        if count == text:
-            title = item["topic"]
-            body = item["text"]
-            status = item["status"]
 
-    html = f"<html><body><h1>To Do number {text}</h1><h2>{title}</h2><h3>{body}</h3><h4>{status}</h4><p><a href={reverse('todo:todo', args=[text-1])}>Previous To Do</a><a href={reverse('todo:todo', args=[text+1])}>Next To To</a></p></body></html>"
-
-    return HttpResponse(html)
+def todo_overview(request):
+    todos = models.Todo.objects.all()
+    return render(request, "todo/overview.html", {"todos": todos})

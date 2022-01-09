@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
-from notes import views
+from common import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,7 +25,7 @@ urlpatterns = [
     path(
         "home", TemplateView.as_view(template_name="common/home.html"), name="home_page"
     ),
-    path("<int:text>/", views.redirect_note, name="redirect_note"),
+    path("<int:id>/", views.redirect_id_view),
     path("notes/", include(("notes.urls", "notes"), namespace="notes")),
     path("todo/", include(("todo.urls", "todo"), namespace="todo")),
 ]

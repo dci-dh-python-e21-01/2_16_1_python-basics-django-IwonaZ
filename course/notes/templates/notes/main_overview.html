@@ -1,0 +1,11 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<h2>Welcome to my course notes!</h2>
+<p>
+    <a href="{% url 'notes:section_overview'%}">Check the list of sections</a>
+</p>
+<p>
+    <a href="/notes/1/">Read my first notes</a>
+</p>
+{% endblock content %}
