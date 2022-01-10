@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 from django.urls import reverse
 from notes import models
 from notes.forms import SearchForm
@@ -48,11 +48,21 @@ def section_id_view(request, id):
     )
 
 
-def search_view(request, search_text):
-    section = models.Section.objects.filter(note__icontains=search_text).first()
-    return render(
-        request, "notes/search.html", {"section": section, "term": search_text}
-    )
+# def search_view(request, search_text):
+#     section = models.Section.objects.filter(note__icontains=search_text).first()
+#     return render(
+#         request, "notes/search.html", {"section": section, "term": search_text}
+#     )
+
+
+class SearchResultsView(TemplateView):
+
+    template_name = "notes/search_term.html"
+
+    def get_context_data(self, search_term):
+        sections = models.Section.objects.all()
+
+        return {"sections": sections, "search_term": search_term}
 
 
 class Search(FormView):

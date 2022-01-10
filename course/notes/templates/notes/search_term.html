@@ -1,0 +1,17 @@
+{% extends "notes/base.html" %}
+
+{% block content %}
+
+<h4>Notes matching {{ search_term }}</h4>
+  <ul>
+    {% for section in sections %}
+      {% if search_term|lower in section.note|lower %}
+        <li>
+          {{ section.note }}.
+        </li>
+        
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+{% endblock %}
