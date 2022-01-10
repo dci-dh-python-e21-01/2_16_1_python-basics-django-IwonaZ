@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 from common import views
+from notes.views import Search
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,6 +27,7 @@ urlpatterns = [
         "home", TemplateView.as_view(template_name="common/home.html"), name="home_page"
     ),
     path("<int:id>/", views.redirect_id_view),
+    path("search/", Search.as_view(), name="search_form"),
     path("notes/", include(("notes.urls", "notes"), namespace="notes")),
     path("todo/", include(("todo.urls", "todo"), namespace="todo")),
 ]

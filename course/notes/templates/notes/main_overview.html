@@ -6,6 +6,6 @@
     <a href="{% url 'notes:section_overview'%}">Check the list of sections</a>
 </p>
 <p>
-    <a href="/notes/1/">Read my first notes</a>
+    <a href="{% url 'notes:section_id_view' 1 %}">Read my first notes</a>
 </p>
 {% endblock content %}

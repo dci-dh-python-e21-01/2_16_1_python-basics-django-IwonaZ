@@ -1,12 +1,21 @@
 {% extends "notes/base.html" %}
 
 {% block content %}
+
 {% if section %}
 <h2>{{ section.title }}</h2>
+
 <p>{{ section.note|safe }}</p>
-<p><a href="{{request.META.HTTP_REFERER|escape}}">Back</a> </p>
-<p>Next</p>
+
 {% else %}
 The section could not be found.
+{% endif %}
+
+{% if previous_section %}
+<a href="{% url 'notes:section_id_view' previous_section.id %}">Previous</a>
+
+{% endif %}
+{% if next_section %}
+<a href="{% url 'notes:section_id_view' next_section.id %}">Next</a>
 {% endif %}
 {% endblock %}

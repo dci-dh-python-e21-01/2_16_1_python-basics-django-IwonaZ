@@ -1,0 +1,18 @@
+{% extends "notes/base.html" %}
+
+{% block content %}
+
+<h2>Notes about {{section_name}}</h2>
+
+<ol>
+{% for item in notes %}
+
+    {% if item.title == section_name %}
+        <li>{{item.note|safe}}</li>
+    {% else %}
+        continue
+</ol>
+    {%endif %}
+{% endfor %}
+
+{% endblock %}
