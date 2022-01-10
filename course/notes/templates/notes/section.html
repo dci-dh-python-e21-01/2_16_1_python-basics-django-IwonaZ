@@ -1,9 +1,13 @@
 {% extends "notes/base.html" %}
 
+{% load sections}
+
 {% block content %}
 
 {% if section %}
-<h2>{{ section.title }}</h2>
+<h2>My note number {{ section.id }}</h2>
+
+<h4>Section: <a href= "{% url 'notes:notes_main' %}">{{ section.title }}</a></h4>
 
 <p>{{ section.note|safe }}</p>
 
