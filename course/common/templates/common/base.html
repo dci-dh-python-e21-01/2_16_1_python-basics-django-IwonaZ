@@ -14,11 +14,19 @@
             <li><a href="{% url 'home'%}">Home</a></li>
             <li><a href="{% url 'notes:notes_main' %}">My Course Notes</a></li>
             <li><a href="{% url 'todo:todo_overview' %}">My ToDo List</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
         </ul>
     </nav>
     
     <div>
         <h1>{% block header %}{% endblock %}</h1>
+        {% if messages %}
+        {% for message in messages %}
+        <div>
+            {{ message }}
+        </div>
+        {%endfor%}
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
     
