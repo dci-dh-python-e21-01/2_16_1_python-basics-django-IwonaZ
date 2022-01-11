@@ -1,12 +1,13 @@
 from django import forms
 
 SECTION_TITLES = (
-    ("Web", "Web Frameworks"),
-    ("Django", "Setting up Django"),
-    ("mapping", "URL Mapping"),
+    ("any", "--Any--"),
+    ("Web Frameworks", "Web Frameworks"),
+    ("URL Mapping", "URL Mapping"),
+    ("Setting up Django", "Setting up Django"),
 )
 
 
 class SearchForm(forms.Form):
     term_of_search = forms.CharField()
-    section = forms.ChoiceField(choices=SECTION_TITLES)
+    section = forms.ChoiceField(choices=SECTION_TITLES, required=False)

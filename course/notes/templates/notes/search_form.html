@@ -5,10 +5,11 @@
 <form method="post">
     {% csrf_token %}
   <label for="term_of_search">Term of search:</label>
-  {{ my_form.term_of_search }}
+  {{ form.term_of_search }}
   <label for="section">Section</label>
-  {{ my_form.section }}
+  {{ form.section }}
   <button type="submit">Submit</button>
+  {{message}}
   </form>
 
   {% endblock %}

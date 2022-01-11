@@ -9,4 +9,11 @@
 {% else %}
 The todo item could not be found.
 {% endif %}
+{% if previous_todo %}
+<a href="{% url 'todo:todo_view' previous_todo.id %}">Previous</a>
+
+{% endif %}
+{% if next_todo %}
+<a href="{% url 'todo:todo_view' next_todo.id %}">Next</a>
+{% endif %}
 {% endblock %}
