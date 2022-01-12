@@ -19,7 +19,7 @@ urlpatterns = [
         auth_views.LogoutView.as_view(template_name="common/logout.html"),
         name="logout",
     ),
-    path("<int:id>/", views.redirect_id_view),
+    path("<int:id>/", views.redirect_id_view, name="redirect_view"),
     path("search/", notes_views.form_view, name="search_form"),
     path("notes/", include(("notes.urls", "notes"), namespace="notes")),
     path("todo/", include(("todo.urls", "todo"), namespace="todo")),
