@@ -4,9 +4,15 @@ from django.urls import reverse
 from notes import models
 from notes.models import Section
 from notes.forms import SearchForm
+import logging
+
+logger = logging.getLogger("django")
 
 
 def notes_main_view(request):
+    logger.info("User has visited page./ Info log")
+    logger.debug(request)
+    logger.warning(request, "This is a worning log")
     return render(request, "notes/main_overview.html")
 
 

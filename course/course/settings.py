@@ -131,3 +131,38 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = "home"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "verbose"},
+        "file_log": {
+            "level": "WARNING",
+            "class": "logging.FileHandler",
+            "filename": "course/file_log.log",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file_log"],
+            "level": "INFO",
+            "propagate": False,
+            "filters": ["require_debug_true"],
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            (): "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "[%(asctime)s] %(levelname)s %(message)s",
+        }
+    },
+}
